@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        // module code generation
+        "module": "commonjs",
+        "esModuleInterop": false,
+
+        // ECMAScript target version: 
+        "target": "es6",
+
+        // enables --noImplicitAny, --noImplicitThis, --alwaysStrict, --strictBindCallApply, --strictNullChecks, --strictFunctionTypes and --strictPropertyInitialization.
+        "strict": true,
+
+        // determine how modules are resolved
+        "moduleResolution": "node",
+
+        // generate files to revert combined/minified file back to original states
+        "sourceMap": true,
+
+        // redirect output structure to the directory
+        "outDir": "dist",
+
+        // base directory to resolve non-relative module names
+        "baseUrl": ".",
+
+        // mapping entries for module names to locations 
+        "paths": {
+            "*": [
+                "node_modules/",
+                "src/types/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ],
+    // exclude npm modules during compilations 
+    "exclude": [
+        "node_modules"
+    ]
+}
