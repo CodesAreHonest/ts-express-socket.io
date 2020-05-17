@@ -1,11 +1,9 @@
 import * as socketIo from 'socket.io';
-import * as redis from "redis";
-import { decode } from "jsonwebtoken";
-import { resolve } from 'path';
-import { readFileSync } from "fs";
 
+import { RedisClient } from "redis";
+import { decode } from "jsonwebtoken";
 import { Server } from 'http';
-import { getPublicKey } from '../utils/storage';
+import { getPlatformPublicKey } from '../utils/storage';
 
 import { SocketEvent, VerifyTokenStatus, Platform } from '../constants';
 import { verifyTokenSignature, platforms } from "../utils/jsonwebtoken";
@@ -14,9 +12,9 @@ import { IDecodedToken } from "../interfaces/jsonwebtoken";
 class SocketServer {
 
     private _io: SocketIO.Server;
-    private _redis: redis.RedisClient;
+    private _redis: RedisClient;
 
-    constructor(server: Server, redis: redis.RedisClient) {
+    constructor(server: Server, redis: RedisClient) {
         this._io = socketIo(server);
         this._redis = redis;
         this.listen();
@@ -40,7 +38,7 @@ class SocketServer {
                 }
 
                 // verify the signature of token with public key assigned to specific platform
-                const publicKey: string = getPublicKey(Platform.SAMPLE_PLATFORM);
+                const publicKey: string = getPlatformPublicKey(assignedPlatform);
                 const verifyOutcome: VerifyTokenStatus = verifyTokenSignature(
                     socketAccessToken, publicKey
                 );
