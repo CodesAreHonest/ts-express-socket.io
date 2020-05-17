@@ -7,7 +7,7 @@ import { getPlatformPublicKey } from '../utils/storage';
 
 import { SocketEvent, VerifyTokenStatus, Platform } from '../common/constants';
 import { verifyTokenSignature, platforms } from "../utils/jsonwebtoken";
-import { IDecodedToken } from "../interfaces/jsonwebtoken";
+import { IDecodedToken } from "../common/interfaces/jsonwebtoken";
 
 class SocketServer {
 

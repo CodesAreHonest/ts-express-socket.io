@@ -1,4 +1,4 @@
-import { ICustomErrorResponse } from "../interfaces/responses";
+import { ICustomErrorResponse } from "../common/interfaces/responses";
 import { Request, Response, NextFunction } from "express";
 
 export default (err: Error | ICustomErrorResponse, req: Request, res: Response, next: NextFunction) => {

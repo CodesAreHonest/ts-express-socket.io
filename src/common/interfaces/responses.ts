@@ -1,4 +1,4 @@
-import { ErrorMessage, SuccessData } from "../common/types";
+import { ErrorMessage, SuccessData } from "../types";
 
 export interface IErrorFormat {
     msg: string,
