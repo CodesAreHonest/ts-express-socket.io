@@ -9,6 +9,7 @@
 
         // enables --noImplicitAny, --noImplicitThis, --alwaysStrict, --strictBindCallApply, --strictNullChecks, --strictFunctionTypes and --strictPropertyInitialization.
         "strict": true,
+        "strictPropertyInitialization": false,
 
         // determine how modules are resolved
         "moduleResolution": "node",
