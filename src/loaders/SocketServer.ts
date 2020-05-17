@@ -11,8 +11,6 @@ import { SocketEvent, VerifyTokenStatus, Platform } from '../constants';
 import { verifyTokenSignature, platforms } from "../utils/jsonwebtoken";
 import { IDecodedToken } from "../interfaces/jsonwebtoken";
 
-const publicKey: string = getPublicKey(Platform.SAMPLE_PLATFORM);
-
 class SocketServer {
 
     private _io: SocketIO.Server;
@@ -30,7 +28,19 @@ class SocketServer {
             .origins("*:*")
             .use((socket: any, next) => {
 
+                // identify whether the token is from our platform
                 const socketAccessToken: string = socket.handshake.query.token;
+                const decodedToken: IDecodedToken = decode(socketAccessToken) as IDecodedToken;
+                const { aud: tokenAudience, sub: tokenSubscriber } = decodedToken;
+                const assignedPlatform: Platform | undefined = platforms(tokenAudience);
+
+                if (assignedPlatform === undefined) {
+                    socket.disconnect();
+                    return;
+                }
+
+                // verify the signature of token with public key assigned to specific platform
+                const publicKey: string = getPublicKey(Platform.SAMPLE_PLATFORM);
                 const verifyOutcome: VerifyTokenStatus = verifyTokenSignature(
                     socketAccessToken, publicKey
                 );
@@ -50,15 +60,6 @@ class SocketServer {
                     default:
                         socket.disconnect();
                         return;
-                }
-
-                const decodedToken: IDecodedToken = decode(socketAccessToken) as IDecodedToken;
-                const { aud: tokenAudience, sub: tokenSubscriber } = decodedToken;
-                const assignedPlatform: Platform | undefined = platforms(tokenAudience);
-
-                if (assignedPlatform === undefined) {
-                    socket.disconnect();
-                    return;
                 }
 
                 socket.platform = assignedPlatform;

@@ -8,11 +8,7 @@ export const getPublicKey = (platform: Platform): string => {
         [Platform.SAMPLE_PLATFORM]: "storage/sample-platform-public.key"
     };
 
-    try {
-        const publicKeyPath = resolve(publicKeyObj[platform]);
-        const publicKey: string = readFileSync(publicKeyPath, "utf-8");
-        return publicKey;
-    } catch (err) {
-        throw new Error("Public Key not found to start Socket Server");
-    }
+    const publicKeyPath = resolve(publicKeyObj[platform]);
+    const publicKey: string = readFileSync(publicKeyPath, "utf-8");
+    return publicKey;
 }
