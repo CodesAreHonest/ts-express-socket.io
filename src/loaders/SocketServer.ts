@@ -5,7 +5,7 @@ import { decode } from "jsonwebtoken";
 import { Server } from 'http';
 import { getPlatformPublicKey } from '../utils/storage';
 
-import { SocketEvent, VerifyTokenStatus, Platform } from '../constants';
+import { SocketEvent, VerifyTokenStatus, Platform } from '../common/constants';
 import { verifyTokenSignature, platforms } from "../utils/jsonwebtoken";
 import { IDecodedToken } from "../interfaces/jsonwebtoken";
 

@@ -1,5 +1,5 @@
 import * as redis from "redis";
-import config from "../config";
+import config from "../common/config";
 
 class RedisServer {
     private _redis: redis.RedisClient;

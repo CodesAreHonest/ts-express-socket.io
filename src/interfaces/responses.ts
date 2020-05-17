@@ -1,5 +1,4 @@
-export type errorMessageType = object | string | null | string[];
-export type successDataType = object | [] | null;
+import { ErrorMessage, SuccessData } from "../common/types";
 
 export interface IErrorFormat {
     msg: string,
@@ -7,20 +6,20 @@ export interface IErrorFormat {
 };
 
 export interface ICustomErrorResponse {
-    _errorMessage: errorMessageType,
-    _errorCode: string,
-    _errorDescription: string,
-    _statusCode: number
+    errorMessage: ErrorMessage,
+    errorCode: string,
+    errorDescription: string,
+    statusCode: number
 };
 
 export interface ISuccessResponse {
     status: number,
     message: string,
-    data?: successDataType
+    data?: SuccessData
 };
 
 export interface IErrorResponse {
     errorCode: string,
     errorDescription: string,
-    errorMessage: errorMessageType
+    errorMessage: ErrorMessage
 }

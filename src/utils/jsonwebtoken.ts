@@ -1,7 +1,7 @@
-import config from "../config";
+import config from "../common/config";
 
 import { verify, TokenExpiredError } from "jsonwebtoken";
-import { VerifyTokenStatus, Platform } from "../constants";
+import { VerifyTokenStatus, Platform } from "../common/constants";
 
 export const verifyTokenSignature = (accessToken: string, publicKey: string): VerifyTokenStatus => {
 

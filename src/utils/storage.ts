@@ -1,11 +1,13 @@
+import config from "../common/config";
+
 import { resolve } from "path";
 import { readFileSync } from "fs";
-import { Platform } from '../constants';
+import { Platform } from '../common/constants';
 
 export const getPlatformPublicKey = (platform: Platform): string => {
 
     const publicKeyObj = {
-        [Platform.SAMPLE_PLATFORM]: "storage/sample-platform-public.key"
+        [Platform.SAMPLE_PLATFORM]: config.samplePlatformPublicKey
     };
 
     const publicKeyPath = resolve(publicKeyObj[platform]);

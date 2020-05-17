@@ -1,12 +1,12 @@
 import * as express from 'express';
 import * as bodyParser from "body-parser";
-import config from "../config";
+import config from "../common/config";
 import cors = require('cors');
+import errorHandler from "../errors/ErrorHandler";
 
 // import Router from "../apis/routes";
 
 import { Server, createServer } from 'http';
-import { resolve } from "path";
 
 
 class ExpressServer {
@@ -25,6 +25,7 @@ class ExpressServer {
         // initialize express instances 
         this._app = express();
         this._app.use(cors());
+        this._app.use(errorHandler);
 
         // only accept content type application/json
         this._app.use(bodyParser.urlencoded({ extended: false }));
