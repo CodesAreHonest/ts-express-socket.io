@@ -1,5 +1,30 @@
 import ExpressServer from "./loaders/ExpressServer";
+import RedisServer from './loaders/RedisServer';
+import SocketServer from './loaders/SocketServer';
 
-const app = new ExpressServer().app;
+// start express
+const expressServer = new ExpressServer();
+const expressInstance = expressServer.server;
 
-export { app };
+// start redis
+const redisServer = new RedisServer();
+const redisInstance = redisServer.initialize();
+
+// start socket 
+const socketServer = new SocketServer(expressInstance, redisInstance);
+
+process.on('exit', () => {
+
+    expressServer.close();
+    redisServer.close();
+    socketServer.close();
+
+}).on('SIGINT', () => {
+
+    expressServer.close();
+    redisServer.close();
+    socketServer.close();
+
+})
+
+export { expressServer, redisServer, socketServer };

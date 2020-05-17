@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as bodyParser from "body-parser";
+import config from "../config";
 import cors = require('cors');
 
 // import Router from "../apis/routes";
@@ -13,13 +14,14 @@ class ExpressServer {
 
     private _app: express.Application;
     private _server: Server;
-    private _port: string | number = ExpressServer.PORT;
+    private _port: number;
 
     public constructor() {
         this.listen();
     }
 
     private listen(): void {
+
         // initialize express instances 
         this._app = express();
         this._app.use(cors());
@@ -28,19 +30,16 @@ class ExpressServer {
         this._app.use(bodyParser.urlencoded({ extended: false }));
         this._app.use(bodyParser.json({ type: "*/*" }));
 
-        // close connections on exit.
-        process.on('exit', () => { this.closeConnections(); });
-        process.on('SIGINT', () => { this.closeConnections(); });
-
         // start nodejs server
+        this._port = config.serverPort || ExpressServer.PORT;
         this._server = createServer(this._app);
         this._server.listen(this._port, () => {
-            console.log('Running express server on port %s', this._port);
+            console.log('Running Express Server on port %s', this._port);
         })
 
     }
 
-    private closeConnections(): void {
+    public close(): void {
 
         // close express server
         this._server.close((err) => {
@@ -49,12 +48,11 @@ class ExpressServer {
             // close redis server. 
             // closeServer();
 
-            console.info(new Date(), '[Express]: Stopped');
-            process.exit(0);
+            console.info(new Date(), '[ExpressServer]: Stopped');
         });
     }
 
-    get app(): express.Application { return this._app; }
+    get server(): Server { return this._server; }
 }
 
 export default ExpressServer; 
