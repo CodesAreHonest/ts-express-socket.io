@@ -3,8 +3,7 @@ import * as bodyParser from "body-parser";
 import config from "../common/config";
 import cors = require('cors');
 import errorHandler from "../responses/ErrorHandler";
-
-// import Router from "../apis/routes";
+import routes from '../api/routes';
 
 import { Server, createServer } from 'http';
 
@@ -24,12 +23,13 @@ class ExpressServer {
 
         // initialize express instances 
         this._app = express();
-        this._app.use(cors());
-        this._app.use(errorHandler);
 
         // only accept content type application/json
         this._app.use(bodyParser.urlencoded({ extended: false }));
         this._app.use(bodyParser.json({ type: "*/*" }));
+        this._app.use(cors());
+        this._app.use(errorHandler);
+        this._app.use('/api', routes);
 
         // start nodejs server
         this._port = config.serverPort || ExpressServer.PORT;
@@ -41,13 +41,8 @@ class ExpressServer {
     }
 
     public close(): void {
-
-        // close express server
         this._server.close((err) => {
             if (err) throw Error();
-
-            // close redis server. 
-            // closeServer();
 
             console.info(new Date(), '[ExpressServer]: Stopped');
         });
