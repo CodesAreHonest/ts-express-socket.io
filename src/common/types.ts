@@ -1,2 +1,2 @@
 export type ErrorMessage = object | string | null | string[];
-export type SuccessData = object | [] | object; 
+export type SuccessType = object | [] | null; 

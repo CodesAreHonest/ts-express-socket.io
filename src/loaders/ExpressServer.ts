@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as bodyParser from "body-parser";
 import config from "../common/config";
 import cors = require('cors');
-import errorHandler from "../errors/ErrorHandler";
+import errorHandler from "../responses/ErrorHandler";
 
 // import Router from "../apis/routes";
 
