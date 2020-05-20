@@ -1,7 +1,7 @@
 import { ErrorMessage } from "../../common/types";
 
 class UnprocessableEntity extends Error {
-    public statusCode: number = 422;
+    public readonly statusCode: number = 422;
 
     constructor(
         public errorCode: string,

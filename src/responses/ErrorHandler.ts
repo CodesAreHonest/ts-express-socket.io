@@ -17,13 +17,13 @@ export default (err: Error | ICustomErrorResponse, req: Request, res: Response, 
         err instanceof UnprocessableEntity ||
         err instanceof InternalServerError
     ) {
-        return responseCustomError(err, res);
+        return reportCustomError(err, res);
     }
 
     next(err);
 }
 
-const responseCustomError = (err: ICustomErrorResponse, res: Response) => {
+const reportCustomError = (err: ICustomErrorResponse, res: Response) => {
 
     const { statusCode = 500 } = err;
     return res.status(statusCode).json(err);

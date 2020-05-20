@@ -1,7 +1,7 @@
 import { ErrorMessage } from "../../common/types";
 
 class Forbidden extends Error {
-    public statusCode: number = 403;
+    public readonly statusCode: number = 403;
 
     constructor(
         public errorCode: string,

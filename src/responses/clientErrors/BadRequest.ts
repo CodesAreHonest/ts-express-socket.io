@@ -1,7 +1,7 @@
 import { ErrorMessage } from "../../common/types";
 
 class BadRequest extends Error {
-    public statusCode: number = 400;
+    public readonly statusCode: number = 400;
 
     constructor(
         public errorCode: string,

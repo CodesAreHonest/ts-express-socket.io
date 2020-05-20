@@ -1,7 +1,7 @@
 import { ErrorMessage } from "../../common/types";
 
 class InternalServerError extends Error {
-    public statusCode: number = 500;
+    public readonly statusCode: number = 500;
 
     constructor(
         public errorCode: string,

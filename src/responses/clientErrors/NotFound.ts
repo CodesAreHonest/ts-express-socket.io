@@ -1,7 +1,7 @@
 import { ErrorMessage } from "../../common/types";
 
 class NotFound extends Error {
-    public statusCode: number = 404;
+    public readonly statusCode: number = 404;
 
     constructor(
         public errorCode: string,
