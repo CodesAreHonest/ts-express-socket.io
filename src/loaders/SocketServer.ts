@@ -26,12 +26,17 @@ class SocketServer {
             .origins("*:*")
             .use((socket: any, next) => {
 
-                // identify whether the token is from our platform
+                // token format verification
                 const socketAccessToken: string = socket.handshake.query.token;
                 const decodedToken: IDecodedToken = decode(socketAccessToken) as IDecodedToken;
+                if (decodedToken === null) {
+                    socket.disconnect();
+                    return;
+                }
+
+                // identify whether the token is from our platform
                 const { aud: tokenAudience, sub: tokenSubscriber } = decodedToken;
                 const assignedPlatform: Platform | undefined = platforms(tokenAudience);
-
                 if (assignedPlatform === undefined) {
                     socket.disconnect();
                     return;
