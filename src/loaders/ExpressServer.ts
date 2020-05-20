@@ -7,6 +7,8 @@ import routes from '../api/routes';
 import routeNotFound from '../api/middlewares/RouteNotFound';
 
 import { Server, createServer } from 'http';
+import { RedisClient } from 'redis';
+import RedisServer from './RedisServer';
 
 
 class ExpressServer {
@@ -48,6 +50,14 @@ class ExpressServer {
 
             console.info(new Date(), '[ExpressServer]: Stopped');
         });
+    }
+
+    public initSocket(socket: SocketIO.Server): void {
+        this._app.set('socket', socket);
+    }
+
+    public initRedis(redis: RedisServer): void {
+        this._app.set('redis', redis);
     }
 
     get server(): Server { return this._server; }

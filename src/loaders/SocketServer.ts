@@ -101,7 +101,7 @@ class SocketServer {
         })
     }
 
-    get(): SocketIO.Server {
+    get instance(): SocketIO.Server {
         return this._io;
     }
 }

@@ -9,9 +9,12 @@ const expressInstance = expressServer.server;
 // start redis
 const redisServer = new RedisServer();
 const redisInstance = redisServer.initialize();
+expressServer.initRedis(redisServer);
 
 // start socket 
 const socketServer = new SocketServer(expressInstance, redisInstance);
+const socketInstance = socketServer.instance;
+expressServer.initSocket(socketInstance);
 
 process.on('exit', () => {
 

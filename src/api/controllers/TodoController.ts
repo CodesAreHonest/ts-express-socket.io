@@ -1,15 +1,20 @@
-import { validator } from '../../utils/validator';
-import { Request, Response } from "express";
 import TodoService from '../services/TodoService';
 import Success from '../../responses/successful/Success';
 import Todo from '../models/Todo';
+import RedisServer from '../../loaders/RedisServer';
 
-export const store = (req: Request, res: Response) => {
+import { validator } from '../../utils/validator';
+import { Request, Response } from "express";
+
+export const store = async (req: Request, res: Response) => {
     validator(req);
 
     const { task, isCompleted } = req.body;
-    const todoService = new TodoService();
-    const newTodo: Todo = todoService.storeTodoToModel(task, isCompleted);
+
+    const socket: SocketIO.Server = req.app.get('socket');
+    const redis: RedisServer = req.app.get('redis');
+    const todoService = new TodoService(socket, redis);
+    const newTodo: Todo = await todoService.storeTodoToModel(task, isCompleted);
 
     const successResponse = new Success(newTodo).toJson;
     return res.status(200).json(successResponse);
@@ -18,7 +23,9 @@ export const store = (req: Request, res: Response) => {
 
 export const list = (req: Request, res: Response) => {
 
-    const todoService = new TodoService();
+    const socket: SocketIO.Server = req.app.get('socket');
+    const redis: RedisServer = req.app.get('redis');
+    const todoService = new TodoService(socket, redis);
     const todoLists: Todo[] = todoService.getSampleList();
 
     const successResponse = new Success(todoLists).toJson;
