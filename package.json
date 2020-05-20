@@ -6,8 +6,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly --no-notify ./src/server.ts",
-    "prod": "tsc && NODE_ENV=production node ./dist/server.js"
+    "prod": "NODE_ENV=production node ./dist/server.js"
   },
   "keywords": [
     "Socket"

@@ -1,12 +1,12 @@
-import { SuccessType } from "../../common/types";
+import { SuccessData } from "../../common/types";
 import { ISuccessResponse } from '../../common/interfaces/responses';
 
 class Success {
     private _statusCode: number = 200;
     private _message: string = "success";
-    private _data: SuccessType;
+    private _data: SuccessData;
 
-    constructor(data: SuccessType = null) {
+    constructor(data: SuccessData = null) {
         this._data = data;
     }
 
