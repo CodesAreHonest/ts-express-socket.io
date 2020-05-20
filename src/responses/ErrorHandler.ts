@@ -1,13 +1,26 @@
+import Unauthorized from './clientErrors/Unauthorized';
+import BadRequest from './clientErrors/BadRequest';
+import NotFound from './clientErrors/NotFound';
+import UnprocessableEntity from './clientErrors/UnprocessableEntity';
+import InternalServerError from './serverErrors/InternalServerError';
+
 import { ICustomErrorResponse } from "../common/interfaces/responses";
 import { Request, Response, NextFunction } from "express";
 
 export default (err: Error | ICustomErrorResponse, req: Request, res: Response, next: NextFunction) => {
 
-    if (!(err instanceof Error)) {
+    if (
+        err instanceof Unauthorized ||
+        err instanceof BadRequest ||
+        err instanceof NotFound ||
+        err instanceof Unauthorized ||
+        err instanceof UnprocessableEntity ||
+        err instanceof InternalServerError
+    ) {
         return responseCustomError(err, res);
     }
 
-    throw err;
+    next(err);
 }
 
 const responseCustomError = (err: ICustomErrorResponse, res: Response) => {

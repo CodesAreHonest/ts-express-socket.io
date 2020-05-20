@@ -1,18 +1,14 @@
 import { ErrorMessage } from "../../common/types";
 
 class Forbidden extends Error {
-    private statusCode: number = 403;
+    public statusCode: number = 403;
 
     constructor(
-        private errorCode: string,
-        private errorDescription: string,
-        private errorMessage: ErrorMessage,
+        public errorCode: string,
+        public errorDescription: string,
+        public errorMessage: ErrorMessage,
     ) {
         super();
-
-        if (Error.captureStackTrace) {
-            Error.captureStackTrace(this, Forbidden);
-        }
 
         this.statusCode = this.statusCode;
         this.errorCode = errorCode;

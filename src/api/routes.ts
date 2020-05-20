@@ -1,6 +1,6 @@
 import JsonWebToken from './middlewares/JsonWebToken';
 
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 
 import { store, list } from './controllers/TodoController';
 import { storeValidation } from './validations/Todo';

@@ -4,6 +4,7 @@ import config from "../common/config";
 import cors = require('cors');
 import errorHandler from "../responses/ErrorHandler";
 import routes from '../api/routes';
+import routeNotFound from '../api/middlewares/RouteNotFound';
 
 import { Server, createServer } from 'http';
 
@@ -28,8 +29,9 @@ class ExpressServer {
         this._app.use(bodyParser.urlencoded({ extended: false }));
         this._app.use(bodyParser.json({ type: "*/*" }));
         this._app.use(cors());
-        this._app.use(errorHandler);
         this._app.use('/api', routes);
+        this._app.use('*', routeNotFound);
+        this._app.use(errorHandler);
 
         // start nodejs server
         this._port = config.serverPort || ExpressServer.PORT;
