@@ -20,6 +20,15 @@ const JsonWebToken = (req: Request, res: Response, next: NextFunction) => {
 
     const accessToken: string = headers.authorization.replace('Bearer', '').trim();
     const decodedToken: IDecodedToken = decode(accessToken) as IDecodedToken;
+
+    if (decodedToken === null) {
+        throw new Unauthorized(
+            'INVALID_TOKEN_FORMAT',
+            ErrorDescription.UNAUTHORIZED,
+            'invalid token'
+        );
+    }
+
     const { aud: tokenAudience, sub: tokenSubscriber } = decodedToken;
     const assignedPlatform: Platform | undefined = platforms(tokenAudience);
 
