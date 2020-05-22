@@ -4,19 +4,17 @@ FROM node:lts-alpine
 WORKDIR /usr/src/app
 
 ## copy package, tsconfig
-COPY package*.json .
-COPY tsconfig*.json .
-COPY . . 
+COPY package*.json ./
+COPY tsconfig*.json ./
 
 ## build node_modules/
-RUN npm ci --quiet
-RUN npm run build 
+RUN npm ci
 
 ## copy src files 
-COPY /dist ./ 
+COPY . . 
 
 ## bind the app to port 8080 mapped by the docker daemon 
 EXPOSE 8080
 
 ## define the runtime 
-CMD ["npm", "run", "prod"]
+CMD ["npm", "run", "dev"]

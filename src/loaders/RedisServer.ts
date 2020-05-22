@@ -12,7 +12,12 @@ class RedisServer {
         }
 
         if (this._redis === undefined) {
-            this._redis = redis.createClient(this._redisPort);
+            const redisOptions: redis.ClientOpts = {
+                host: config.redisHost,
+                port: config.redisPort,
+
+            };
+            this._redis = redis.createClient(redisOptions);
             console.log('Running Redis Server on port %s', this._redisPort);
         }
 

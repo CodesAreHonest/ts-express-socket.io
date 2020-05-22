@@ -12,6 +12,7 @@ if (isEnvFound.error) {
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 process.env.SERVER_PORT = process.env.SERVER_PORT || "8080";
 process.env.REDIS_PORT = process.env.REDIS_PORT || "6379";
+process.env.REDIS_HOST = process.env.REDIS_HOST || "redis";
 process.env.SAMPLE_PLATFORM_PUBLIC_KEY = process.env.SAMPLE_PLATFORM_PUBLIC_KEY || "123123";
 
 export default {
@@ -20,8 +21,9 @@ export default {
 
     // redis port
     redisPort: parseInt(process.env.REDIS_PORT, 10),
+    redisHost: process.env.REDIS_HOST, 
 
     // json web token audiences
     samplePlatformAudience: process.env.SAMPLE_PLATFORM_AUDIENCE,
-    samplePlatformPublicKey: process.env.SAMPLE_PLATFORM_PUBLIC_KEY
+    samplePlatformPublicKey: process.env.SAMPLE_PLATFORM_PUBLIC_KEY,
 }

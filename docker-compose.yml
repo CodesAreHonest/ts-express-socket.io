@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+    socket:
+        # the path of directory for build
+        build: .
+        env_file: .env
+        ports: 
+            - "8080:8080"
+        expose: # internal ports
+            - "8080"
+        environment: 
+            NODE_ENV: development
+        links: 
+            - "redis"
+        deploy: 
+            mode: global
+    redis:
+        image: "redis:alpine"
+        expose: 
+            - "6379"
+        deploy: 
+            replicas: 1
+            # how the service should be rollback if failing updates
+            rollback_config: 
+                # all container rollback simultanenously
+                parallelism: 0  
+            update_config: 
+                # number of container rollback in a single time. 
+                parallelism: 1 
+            restart_policy:
+                condition: on-failure
+                # duration required for restart attempts
+                delay: 10s 
+                # maximum amount of attempts
+                max_attempts: 3 
+            resources:
+                limits:
+                    # 50% of single core
+                    cpus: "0.5"
+                    # 50M (Megabytes) of memory
+                    memory: 50M
+
+# docker-compose up -d --no-deps --build --no-cache <service_name>
