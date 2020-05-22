@@ -4,7 +4,7 @@ services:
         # the path of directory for build
         build: 
             context: . 
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile 
         env_file: .env
         ports: 
             - "8080:8080"
@@ -12,6 +12,8 @@ services:
             - "8080"
         environment: 
             NODE_ENV: development
+            SERVER_PORT: 8080
+            REDIS_HOST: "redis"
         links: 
             - "redis"
         deploy: 

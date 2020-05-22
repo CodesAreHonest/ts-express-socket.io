@@ -7,11 +7,13 @@ services:
             dockerfile: Dockerfile.prod
         env_file: .env
         ports: 
-            - "8080:8080"
+            - "8000:8000"
         expose: # internal ports
-            - "8080"
+            - "8000"
         environment: 
             NODE_ENV: production
+            SERVER_PORT: 8000
+            REDIS_HOST: "redis"
         links: 
             - "redis"
         deploy: 

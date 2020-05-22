@@ -6,7 +6,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --poll --transpileOnly --no-notify ./src/server.ts",
-    "prod": "tsc && NODE_ENV=production node ./dist/server.js"
+    "build": "tsc",
+    "prod": "NODE_ENV=production node ./dist/server.js"
   },
   "keywords": [
     "Socket"

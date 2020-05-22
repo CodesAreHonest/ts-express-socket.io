@@ -14,7 +14,8 @@ RUN npm ci
 COPY . . 
 
 ## bind the app to port 8080 mapped by the docker daemon 
-EXPOSE 8080
+EXPOSE 8000
 
 ## define the runtime 
+RUN npm run build
 CMD ["npm", "run", "prod"]
