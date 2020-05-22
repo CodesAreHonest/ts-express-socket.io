@@ -4,14 +4,14 @@ services:
         # the path of directory for build
         build: 
             context: . 
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.prod
         env_file: .env
         ports: 
             - "8080:8080"
         expose: # internal ports
             - "8080"
         environment: 
-            NODE_ENV: development
+            NODE_ENV: production
         links: 
             - "redis"
         deploy: 
