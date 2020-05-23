@@ -1,5 +1,23 @@
+# NPM files
 node_modules/
 npm-debug.log
+
+# environment files 
 .env.example
-.git
+
+# node distribution files
 dist/
+
+# docker files 
+Dockerfile*
+.dockerignore
+
+# Git files
+README.md
+LICENSE
+.git
+.gitignore
+
+# IDE configuration files
+.vscode
+.idea 

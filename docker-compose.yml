@@ -1,11 +1,16 @@
 version: '3.7'
 services:
     socket:
+        restart: unless-stopped
         # the path of directory for build
         build: 
             context: . 
             dockerfile: Dockerfile 
         env_file: .env
+        # the changes in my local will be reflected into container (development only)
+        volumes:
+            - .:/usr/src/app
+            # - /usr/src/app/node_modules
         ports: 
             - "8080:8080"
         expose: # internal ports
@@ -16,32 +21,10 @@ services:
             REDIS_HOST: "redis"
         links: 
             - "redis"
-        deploy: 
-            mode: global
     redis:
+        restart: unless-stopped
         image: "redis:alpine"
         expose: 
             - "6379"
-        deploy: 
-            replicas: 1
-            # how the service should be rollback if failing updates
-            rollback_config: 
-                # all container rollback simultanenously
-                parallelism: 0  
-            update_config: 
-                # number of container rollback in a single time. 
-                parallelism: 1 
-            restart_policy:
-                condition: on-failure
-                # duration required for restart attempts
-                delay: 10s 
-                # maximum amount of attempts
-                max_attempts: 3 
-            resources:
-                limits:
-                    # 50% of single core
-                    cpus: "0.5"
-                    # 50M (Megabytes) of memory
-                    memory: 50M
 
 # docker-compose up -d --no-deps --build --no-cache <service_name>
