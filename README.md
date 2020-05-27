@@ -101,8 +101,8 @@ $ docker-compose -f docker-compose.yml up -d
 2. Verify the running status
 ```docker
 $ docker container ls
-a17c5a7a6ec9        ts-express-socketio_socket   "docker-entrypoint.s…"   3 minutes ago       Up 3 minutes        0.0.0.0:8080->8080/tcp   ts-express-socketio_socket_1
-2f8277efd9c7        redis:alpine                 "docker-entrypoint.s…"   3 minutes ago       Up 3 minutes        6379/tcp                 ts-express-socketio_redis_1
+xxxxxxxxxxxx        ts-express-socketio_socket   "docker-entrypoint.s…"   3 minutes ago       Up 3 minutes        0.0.0.0:8080->8080/tcp   ts-express-socketio_socket_1
+xxxxxxxxxxxx        redis:alpine                 "docker-entrypoint.s…"   3 minutes ago       Up 3 minutes        6379/tcp                 ts-express-socketio_redis_1
 ``` 
 
 Running in Production
@@ -121,10 +121,28 @@ $ docker stack deploy --compose-file docker-compose.prod.yml socket-with-redis
 ```docker
 $ docker service ls
 ID                  NAME                       MODE                REPLICAS            IMAGE                               PORTS
-5ryknv44au59        socket-with-redis_redis    replicated          1/1                 redis:alpine                        
-yo73zfkdkgl5        socket-with-redis_socket   global              1/1                 ts-express-socketio_socket:latest   *:8000->8000/tcp
+xxxxxxxxxxxx        socket-with-redis_redis    replicated          1/1                 redis:alpine                        
+xxxxxxxxxxxx        socket-with-redis_socket   global              1/1                 ts-express-socketio_socket:latest   *:8000->8000/tcp
 ``` 
 
+Tool and Technologies
+=====================
+1. Linux Ubuntu 20.04 LTS (Focal Fossa) AMD64 Desktop OS
+2. Express Server 4.17.1 
+3. NodeJS v10.19.0 
+4. Typescript v3.8.3
+5. Socket.io v2.3.0
+6. Redis v3.0.2 
+
+About
+=====
+Author
+------
+- Yinghua Chai
+
+License
+-------
+This project does not contain any license.
 
 
 
