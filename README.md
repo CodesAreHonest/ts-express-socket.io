@@ -13,6 +13,8 @@ Table Of Contents
   * [Limitation](#limitation)
   * [Getting Started](#getting-started)
     * [Installation](#installation)
+      * [Running in Development](#running-in-development)
+      * [Running in Production](#running-in-production)
   * [Tools and Technologies](#tool-and-technologies)
   * [About](#about)
     * [Author](#author)
@@ -75,7 +77,7 @@ OAuth 2.0 security protocol with password grant is selected to prevent unauthori
 
 Typescript programming language with ES6 features or above is used to develop the project to increase greater discipline to saturate the codebase with strict type checking, better code structuring and object-oriented programming techniques. 
 
-Docker Compose is use for define and running both Express Server and Redis in-memory database containers to build the service. The compose file consists of development and production version for developers help improve compatibility and standardization of development, staging and production environment.
+Docker Compose is use for define and running both Express Server and Redis in-memory database containers to build the service. The compose file consists of development and production version for developers help improve compatibility and standardization of development and production environment.
 
 *** 
 
@@ -85,6 +87,44 @@ Limitation
 * [ ] Multiple environment (development and production) for Express Server
 * [ ] Test case configuration for Typescript (Jest)
 * [ ] Lack of index.d.ts file for entire project
+
+Getting Started
+===============
+
+Running in Development
+----------------------
+1. Start the development environment with `docker-compose` and verify the running status.
+```docker
+$ docker-compose -f docker-compose.yml up -d
+```
+
+2. Verify the running status
+```docker
+$ docker container ls
+a17c5a7a6ec9        ts-express-socketio_socket   "docker-entrypoint.s…"   3 minutes ago       Up 3 minutes        0.0.0.0:8080->8080/tcp   ts-express-socketio_socket_1
+2f8277efd9c7        redis:alpine                 "docker-entrypoint.s…"   3 minutes ago       Up 3 minutes        6379/tcp                 ts-express-socketio_redis_1
+``` 
+
+Running in Production
+---------------------
+1. Docker Swarm Initialization 
+```docker
+$ docker swarm init --advertise-addr <your ip address>
+```
+
+2. Deploy into Docker Swarm
+```docker
+$ docker stack deploy --compose-file docker-compose.prod.yml socket-with-redis
+```
+
+3. Verify the running status
+```docker
+$ docker service ls
+ID                  NAME                       MODE                REPLICAS            IMAGE                               PORTS
+5ryknv44au59        socket-with-redis_redis    replicated          1/1                 redis:alpine                        
+yo73zfkdkgl5        socket-with-redis_socket   global              1/1                 ts-express-socketio_socket:latest   *:8000->8000/tcp
+``` 
+
 
 
 
